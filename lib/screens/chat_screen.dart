@@ -10,48 +10,41 @@ class ChatScreen  extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  ListView.builder(
-        itemCount: 10,
+      body: StreamBuilder(
+        stream: FirebaseFirestore
+        .instance.
+        collection('chats/NKZhi2vFepIJBSMiYyyg/messages')
+        
+        .snapshots(),
+        builder: (ctx,AsyncSnapshot<QuerySnapshot> snapshot){
+         if(snapshot.connectionState==ConnectionState.waiting){
+           return Center(child:CircularProgressIndicator(),);
+
+         }
+         final documents=snapshot.data.docs;
+          return ListView.builder(
+        itemCount: documents.length,
         itemBuilder: (ctx,index)=>Container(
           padding: EdgeInsets.all(8),
-          child: Text('This Works'),
+          child: Text(documents[index]['text']),
           
           ),
         
-      ),
+      );
+
+        }
+        
+        
+        ,),
+  
       floatingActionButton: FloatingActionButton(
         child:Icon(Icons.add),
         onPressed: (){
-         // Firebase.initializeApp();
-        FirebaseFirestore.instance
-         .collection('chats/NKZhi2vFepIJBSMiYyyg/messages')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
-            print(doc["text"]);
-        });
-    });
-          
-          
-          // FirebaseFirestore.instance.
-          // collection('chats/NKZhi2vFepIJBSMiYyyg/messages')
-          // .snapshots()
-          // .listen((data) { 
-            //data.documents.forEach((document){
-             //  print (document['text']);
-            //
-            //
-            //});
-            
-          //   
-          // });
-          
-          
-
-        },
-      
-      
-      ),
+       
+        },),
     );
+          
+  
+     
   }
 }
