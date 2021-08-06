@@ -7,7 +7,7 @@ class AuthForm  extends StatefulWidget {
     String password,
     String userName,
     bool isLogin,
-  
+    BuildContext ctx
   ) submitFn;
   
 
@@ -28,7 +28,10 @@ class _AuthFormState extends State<AuthForm> {
     FocusScope.of(context).unfocus();
     if(isValid){
       _formKey.currentState.save();
-     widget.submitFn(_userEmail,_userPassword,_userName,_isLogin);
+     widget.submitFn(_userEmail.trim(),
+     _userPassword.trim(),
+     _userName.trim(),
+     _isLogin,context);
       //use those values to send our auth request...
 
     }
