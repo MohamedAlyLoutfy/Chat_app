@@ -13,7 +13,7 @@ class AuthForm  extends StatefulWidget {
     bool isLogin,
     BuildContext ctx
   ) submitFn;
-  
+    
 
   @override
   _AuthFormState createState() => _AuthFormState();
