@@ -38,6 +38,7 @@ class _AuthScreenState extends State<AuthScreen> {
        .child('user_image')
        .child(authResult.user.uid+'.jpg');
        await ref.putFile(image);
+       final url=ref.getDownloadURL();
 
 
 
@@ -46,6 +47,7 @@ class _AuthScreenState extends State<AuthScreen> {
       doc(authResult.user.uid).set({
         'username':username,
          'email':email,
+         'image_url':url
       });
       }
       
